@@ -6,7 +6,6 @@ local session = require("kong.plugins.oidc.session")
 
 OidcHandler.PRIORITY = 1000
 
-
 function OidcHandler:new()
   OidcHandler.super.new(self, "oidc")
 end
@@ -35,13 +34,21 @@ function handle(oidcConfig)
   end
 
   if response == nil then
-    response = make_oidc(oidcConfig)
+    -- try to authenticate with username and password
+    if (utils.has_api_key()) then
+      ngx.log(ngx.INFO, ">>>>>>>>>> Harmoney try to authenticate with user/password ...")
+      response = utils.do_auth(oidcConfig)
+    else 
+      response = make_oidc(oidcConfig)
+    end 
+
     if response then
       if (response.user) then
         utils.injectUser(response.user)
       end
       if (response.access_token) then
         utils.injectAccessToken(response.access_token)
+        ngx.log(ngx.DEBUG, "Access token: " .. response.access_token)
       end
       if (response.id_token) then
         utils.injectIDToken(response.id_token)

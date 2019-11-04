@@ -3,6 +3,9 @@ return {
   fields = {
     client_id = { type = "string", required = true },
     client_secret = { type = "string", required = true },
+    username = { type = "string", required = true },
+    password = { type = "string", required = true },
+    token_endpoint = {type = "string", required = true },
     discovery = { type = "string", required = true, default = "https://.well-known/openid-configuration" },
     introspection_endpoint = { type = "string", required = false },
     timeout = { type = "number", required = false },
