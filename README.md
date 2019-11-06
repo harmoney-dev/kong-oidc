@@ -55,9 +55,6 @@ ngx.ctx.authenticated_consumer = {
 
 ## Installation
 
-If you're using `luarocks` execute the following:
-
-     luarocks install kong-oidc
      $ git clone https://github.com/harmoney-dev/kong-oidc.git /path/to/kong/plugins/kong-oidc
      $ cd /path/to/kong/plugins//kong-oidc
      $ luarocks make *.rockspec
